@@ -38,7 +38,7 @@
 
 @{
 
-  val arguments = TemplateArgumentsBuilder(
+  val baseArguments = TemplateArgumentsBuilder(
     Some(PageTitleComponent(Messages(title))),
     Some(NavTitleComponent(Messages("feedbackSurvey.giveFeedBack"))),
     Some(AccountMenuStyleComponent(
@@ -69,6 +69,10 @@
     uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig.deskproToken.map(BetaBannerComponent(_))
   )
 
-  templateRenderer.renderDefaultTemplate(layouts.article(mainContent, false, None), arguments)
+  val additionalArguments = Map(
+    "assetsPath" -> uk.gov.hmrc.feedbacksurveyfrontend.FrontendAppConfig.assetsPrefix
+  )
+
+  templateRenderer.renderDefaultTemplate(layouts.article(mainContent, false, None), baseArguments ++ additionalArguments)
 
 }

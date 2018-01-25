@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 HM Revenue & Customs
+ * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ trait AppConfig {
   val betaFeedbackUnauthenticatedUrl: String
   val reportAProblemPartialUrl: String
   val deskproToken: Option[String]
+  val assetsPrefix: String
 }
 
 object FrontendAppConfig extends AppConfig with ServicesConfig {
@@ -42,4 +43,5 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   override lazy val reportAProblemPartialUrl = s"$contactFrontendService/contact/problem_reports?secure=true"
   override lazy val betaFeedbackUnauthenticatedUrl = s"$contactFrontendBaseUrl/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
   override lazy val deskproToken = configuration.getString(s"deskproToken")
+  override lazy val assetsPrefix: String = configuration.getString("assets.url").getOrElse("") + configuration.getString("assets.version").getOrElse("") + "/"
 }
